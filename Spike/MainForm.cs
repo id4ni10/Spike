@@ -31,7 +31,8 @@ namespace Spike
                     {
                         Dia = dias.First().TimeGenerated.Date.ToString("dd/MM/yyyy"),
                         Entrada = dias.First().TimeGenerated.ToString("HH:mm:ss"),
-                        Saida = dias.Last().TimeGenerated.ToString("HH:mm:ss")
+                        Saida = dias.Last().TimeGenerated.ToString("HH:mm:ss"),
+                        Diff = (dias.Last().TimeGenerated.TimeOfDay - dias.First().TimeGenerated.TimeOfDay).ToString()
                     }).ToList();
 
             gridView.DataSource = list;
@@ -45,9 +46,9 @@ namespace Spike
         {
             this.Cursor = Cursors.WaitCursor;
 
-            var content = (from value in list select string.Format("{0},{1},{2}", value.Dia, value.Entrada, value.Saida)).ToList();
+            var content = (from value in list select string.Format("{0},{1},{2},{3}", value.Dia, value.Entrada, value.Saida, value.Diff)).ToList();
 
-            content.Insert(0, "Dia,Entrada,Saida");
+            content.Insert(0, "Dia,Entrada,Saida,Diff");
 
             var file = Path.Combine(Environment.CurrentDirectory, string.Format("{0}{1}", DateTime.Now.Ticks, ".csv"));
 
@@ -66,5 +67,7 @@ namespace Spike
         public string Entrada { get; set; }
 
         public string Saida { get; set; }
+
+        public string Diff { get; set; }
     }
 }
