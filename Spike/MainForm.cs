@@ -55,7 +55,7 @@ namespace Spike
 
             Process.Start(file);
 
-            this.Cursor = Cursors.Default
+            this.Cursor = Cursors.Default;
         }
     }
 
